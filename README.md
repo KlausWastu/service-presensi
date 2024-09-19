@@ -1,4 +1,4 @@
-Project Microservices ini dirancang sebagai service yang akan diintegrasikan ke dalam aplikasi PresensiV2, yang merupakan versi terbaru dari aplikasi Presensi SPJT. Dalam pembaruan ini, kami menambahkan fitur penting yang memungkinkan presensi dilakukan berdasarkan lokasi yang telah ditetapkan oleh admin. Dengan implementasi Microservices ini, setiap komponen dari fitur presensi akan beroperasi secara mandiri namun tetap terkoordinasi, sehingga memperkuat fleksibilitas dan skalabilitas aplikasi dalam menangani kebutuhan presensi berbasis lokasi yang lebih kompleks.
+ Project Microservices ini dirancang sebagai service yang akan diintegrasikan ke dalam aplikasi PresensiV2, yang merupakan versi terbaru dari aplikasi Presensi SPJT. Dalam pembaruan ini, kami menambahkan fitur penting yang memungkinkan presensi dilakukan berdasarkan lokasi yang telah ditetapkan oleh admin. Dengan implementasi Microservices ini, setiap komponen dari fitur presensi akan beroperasi secara mandiri namun tetap terkoordinasi, sehingga memperkuat fleksibilitas dan skalabilitas aplikasi dalam menangani kebutuhan presensi berbasis lokasi yang lebih kompleks.
 
 Sebelum menjalankan aplikasi alangkah lebih baiknya melakukan instalasi dependensi dengan perintah berikut: 
 
@@ -15,6 +15,12 @@ DB_USERNAME=database_username
 DB_PASSWORD=database_password
 
 DB_HOST=localhost
+
+Jangan lupa membuat database terlebih dahulu dan pastikan nama databasenya disesuaikan dengan DB_DATABASE. Setelah membuat database jalankan perintah: 
+
+~ npx sequelize db:migrate
+
+Perintah diatas menjalankan pembuatan table/migrations
 
 Jalankan server dan silahkan dicoba menggunakan API berikut: 
 
