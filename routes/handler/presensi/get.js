@@ -1,8 +1,11 @@
-const { Presensi } = require("../../../models");
+const { Op } = require("sequelize");
+const { Presensi, Sequelize } = require("../../../models");
 
 module.exports = async (req, res) => {
   const presensiIds = req.query.pesensi_id || [];
   const presensiUserIds = req.query.presensi_user_id || [];
+  const presensiMonthUserIds = req.query.presensi_month_user || [];
+  // Ex presensiMonthUserIds = 2024-08
 
   const currentPage = req.query.page || 1;
   const perPage = req.query.perPage || 5;
@@ -36,6 +39,7 @@ module.exports = async (req, res) => {
       "lokasi_link",
       "latitude",
       "longitude",
+      "createdAt",
     ],
     limit,
     offset,
@@ -50,6 +54,25 @@ module.exports = async (req, res) => {
   if (presensiUserIds.length) {
     sqlOptions.where = {
       user_id: presensiUserIds,
+    };
+  }
+
+  if (presensiMonthUserIds.length) {
+    const [year, month] = presensiMonthUserIds.split("-");
+    sqlOptions.where = {
+      ...sqlOptions.where,
+      createdAt: {
+        [Op.and]: [
+          Sequelize.where(
+            Sequelize.fn("YEAR", Sequelize.col("created_at")),
+            year
+          ),
+          Sequelize.where(
+            Sequelize.fn("MONTH", Sequelize.col("created_at")),
+            month
+          ),
+        ],
+      },
     };
   }
 
